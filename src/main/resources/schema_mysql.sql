@@ -1,0 +1,29 @@
+CREATE TABLE IF NOT EXISTS users (
+    id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(256) NOT NULL,
+    password VARCHAR(256) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS image_data (
+    id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(256) NOT NULL,
+    type VARCHAR(256) NOT NULL,
+   imagedata LONGBLOB
+);
+
+CREATE TABLE IF NOT EXISTS posts (
+    id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(256) NOT NULL,
+    content VARCHAR(256) NOT NULL,
+    user_id BIGINT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id),
+    image_data_id BIGINT,
+    FOREIGN KEY (image_data_id) REFERENCES image_data (id)
+);
+
+CREATE TABLE IF NOT EXISTS choices (
+    id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    choice_content VARCHAR(256) NOT NULL,
+    post_id BIGINT NOT NULL,
+    FOREIGN KEY (post_id) REFERENCES posts (id)
+);
